@@ -1,0 +1,20 @@
+version: '2.4'
+services:
+  hmi-nodered:
+    image: 'nodered_ucp:latest'
+    volumes:
+      - './publish/:/publish/'
+      - '/tmp/siemens/automation:/tempcontainer/'
+      - '/media/simatic:/media/simatic:ro,slave'
+      - './cfg-data/:/data'
+    mem_limit: 200mb
+    ports:
+      - '30500:1880'
+    restart: unless-stopped
+    networks:
+      - proxy-redirect
+
+networks:
+  proxy-redirect:
+    external: true
+    name: proxy-redirect

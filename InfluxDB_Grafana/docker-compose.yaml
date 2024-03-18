@@ -1,0 +1,53 @@
+version: '2.4'
+services:
+
+  ## Database
+  influxdb:
+    image: influxdb:2-alpine
+    ports:
+      - '38086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      ## Adjust to your own values
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=edge
+      - DOCKER_INFLUXDB_INIT_PASSWORD=Sim@tic1518
+      - DOCKER_INFLUXDB_INIT_ORG=siemens
+      - DOCKER_INFLUXDB_INIT_BUCKET=ucp_data
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=randomTokenValue
+      ##
+    mem_limit: 100mb
+    restart: unless-stopped
+    networks:
+      - proxy-redirect
+
+  ## Dashboarding app
+  grafana:
+    image: grafana/grafana:9.5.16
+    ports:
+      - '33000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      ## Adjust to your own values
+      - GF_SECURITY_ADMIN_USER=edge
+      - GF_SECURITY_ADMIN_PASSWORD=edge
+      ##
+    mem_limit: 100mb
+    restart: unless-stopped
+    networks:
+      - proxy-redirect
+
+volumes:
+  influxdb-storage:
+  grafana-storage:
+
+networks:
+  proxy-redirect:
+    external: true
+    name: proxy-redirect
