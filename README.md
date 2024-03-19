@@ -7,6 +7,16 @@ Example apps for SIMATIC Unified Comfort Panels, consisting of NodeRed, InfluxDB
 - [x] You have purchased the Edge for Unified Panels license.
 - [x] Ypu are familiar with all necessary tools, including Docker (building images), Docker Compose (YAML file creation) and IEAP (generating APP file based on docker-compose.yaml).
 
+### Helpful materials
+- [Docker documentation](https://docs.docker.com/)
+- [Docker Compose documentation](https://docs.docker.com/compose/)
+- [Docker Hub - repository of ready-made Docker images](https://hub.docker.com/)
+- [Node-Red documentation and tutorials](https://nodered.org/docs/)
+- [InfluxDB documentation](https://www.influxdata.com/_resources/)
+- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
+- [InfluxDB node for Node-Red](https://flows.nodered.org/node/node-red-contrib-influxdb)
+- [How to configure InfluxDB (v2) connector in Grafana](https://docs.influxdata.com/influxdb/v2/tools/grafana/)
+
 ### Short steps:
 1. Copy the repository to your local directory.
 2. Go to the **NodeRed** catalog and build custom image using included **Dockerfile**. You can extend the file to install some extra nodes during image generation. They can also be installed later, as long as your UCP has Internet access.
